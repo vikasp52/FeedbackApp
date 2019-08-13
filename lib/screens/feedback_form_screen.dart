@@ -92,22 +92,22 @@ class _FeedbackFormScreenState extends State<FeedbackFormScreen> {
   Widget ratingWidget({String ratingLabel}) {
     var rating = 0.0;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            ratingLabel,
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-        ),
-        StreamBuilder<String>(
-            stream: feedbackDataBloc.experienceStream,
-            builder: (context, snapshot) {
-              return SmoothStarRating(
+    return StreamBuilder<Object>(
+        stream: feedbackDataBloc.experienceStream,
+        builder: (context, snapshot) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  ratingLabel,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              SmoothStarRating(
                   allowHalfRating: false,
                   onRatingChanged: (v) {
                     rating = v;
@@ -118,10 +118,13 @@ class _FeedbackFormScreenState extends State<FeedbackFormScreen> {
                   size: 40.0,
                   color: Colors.green,
                   borderColor: Colors.green,
-                  spacing: 0.0);
-            }),
-      ],
-    );
+                  spacing: 0.0),
+              snapshot.hasError?Text("Please add rating", style: TextStyle(
+                color: Colors.red
+              ),):SizedBox()
+            ],
+          );
+        });
   }
 
   Widget revisitWidget({String revisitLabel}) {

@@ -35,4 +35,14 @@ class Validators{
     }
   );
 
+  var validateRating = StreamTransformer<String, String>.fromHandlers(
+      handleData: (rating, sink){
+        if(rating!=null && (rating != 0.0.toString())){
+          sink.add(rating);
+        }else{
+          sink.addError('Please add rating');
+        }
+      }
+  );
+
 }

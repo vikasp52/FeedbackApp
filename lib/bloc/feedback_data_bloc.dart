@@ -7,7 +7,7 @@ import 'package:online_survey/model/survey_model.dart';
 import 'package:online_survey/util/database_helper.dart';
 import 'package:rxdart/rxdart.dart';
 
-class FeedbackDataBloc extends Object with Validators{
+class FeedbackDataBloc extends Object with Validators {
   final db = new DataBaseHelper();
 
   static final _nameController = BehaviorSubject<String>();
@@ -24,7 +24,7 @@ class FeedbackDataBloc extends Object with Validators{
   Stream<String> get ageStream => _ageController.stream.transform(validateEmptyField);
   Stream<String> get emailStream => _emailController.stream.transform(emailValidator);
   Stream<String> get phoneNoStream => _phoneNoController.stream.transform(phoneValidator);
-  Stream<String> get experienceStream => _experienceController.stream.transform(validateEmptyField);
+  Stream<String> get experienceStream => _experienceController.stream.transform(validateRating);
   Stream<String> get visitDateStream => _visitDateController.stream.transform(validateEmptyField);
   Stream<String> get visitAgainStream => _visitAgainController.stream;
 
@@ -36,20 +36,23 @@ class FeedbackDataBloc extends Object with Validators{
   Sink<String> get experienceSink => _experienceController.sink;
   Sink<String> get visitDateSink => _visitDateController.sink;
   Sink<String> get visitAgainSink => _visitAgainController.sink;
-  
-  Stream<bool> get submitCheck => Observable.combineLatest6(nameStream,
-      genderStream, ageStream, emailStream, visitDateStream, visitAgainStream, (n, g, a, e, vd, va){
-            if(_nameController.value!=null && g!=null && a!=null && e!=null && vd!=null && va!=null){
-              return true;
-            }else{
-              return false;
-            }
+
+  Stream<bool> get submitCheck =>
+      Observable.combineLatest6(nameStream, genderStream, ageStream, emailStream, visitDateStream, visitAgainStream,
+          (n, g, a, e, vd, va) {
+        if (_nameController.value != null &&
+            _genderController.value != null &&
+            _ageController.value != null &&
+            _emailController.value != null &&
+            _visitDateController.value != null &&
+            _visitAgainController.value != null) {
+          return true;
+        } else {
+          return false;
+        }
       });
 
-
-
-  void saveData()async{
-
+  void saveData() async {
     FeedbackDataModel formData = FeedbackDataModel(
         _nameController.value,
         _genderController.value,
@@ -62,14 +65,13 @@ class FeedbackDataBloc extends Object with Validators{
 
     print("Saved Data: $formData");
 
-    await db.insertFeedbackData(formData).then((data){
+    await db.insertFeedbackData(formData).then((data) {
       print("Saved Survey Data: $data");
       db.getFeedbackData();
     });
   }
 
-
-  dispose(){
+  dispose() {
     _nameController.close();
     _genderController.close();
     _ageController.close();
@@ -79,5 +81,4 @@ class FeedbackDataBloc extends Object with Validators{
     _visitDateController.close();
     _visitAgainController.close();
   }
-
 }
