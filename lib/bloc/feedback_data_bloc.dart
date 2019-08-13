@@ -19,27 +19,27 @@ class FeedbackDataBloc extends Object with Validators{
   static final _visitDateController = BehaviorSubject<String>();
   static final _visitAgainController = BehaviorSubject<String>.seeded(1.toString());
 
-  Stream<String> get nameStream => _nameController.stream;
-  Stream<String> get genderStream => _genderController.stream;
-  Stream<String> get ageStream => _ageController.stream;
+  Stream<String> get nameStream => _nameController.stream.transform(validateEmptyField);
+  Stream<String> get genderStream => _genderController.stream.transform(validateEmptyField);
+  Stream<String> get ageStream => _ageController.stream.transform(validateEmptyField);
   Stream<String> get emailStream => _emailController.stream.transform(emailValidator);
   Stream<String> get phoneNoStream => _phoneNoController.stream.transform(phoneValidator);
-  Stream<String> get experienceStream => _experienceController.stream;
-  Stream<String> get visitDateStream => _visitDateController.stream;
+  Stream<String> get experienceStream => _experienceController.stream.transform(validateEmptyField);
+  Stream<String> get visitDateStream => _visitDateController.stream.transform(validateEmptyField);
   Stream<String> get visitAgainStream => _visitAgainController.stream;
 
-  Sink<String> get nameSink => _nameController.sink;
+  Function(String) get nameSink => _nameController.sink.add;
   Sink<String> get genderSink => _genderController.sink;
-  Sink<String> get ageSink => _ageController.sink;
-  Sink<String> get emailSink => _emailController.sink;
-  Sink<String> get phoneNoSink => _phoneNoController.sink;
+  Function(String) get ageSink => _ageController.sink.add;
+  Function(String) get emailSink => _emailController.sink.add;
+  Function(String) get phoneNoSink => _phoneNoController.sink.add;
   Sink<String> get experienceSink => _experienceController.sink;
   Sink<String> get visitDateSink => _visitDateController.sink;
   Sink<String> get visitAgainSink => _visitAgainController.sink;
   
   Stream<bool> get submitCheck => Observable.combineLatest6(nameStream,
       genderStream, ageStream, emailStream, visitDateStream, visitAgainStream, (n, g, a, e, vd, va){
-            if(n!=null && g!=null && a!=null && e!=null && vd!=null && va!=null){
+            if(_nameController.value!=null && g!=null && a!=null && e!=null && vd!=null && va!=null){
               return true;
             }else{
               return false;
@@ -56,9 +56,16 @@ class FeedbackDataBloc extends Object with Validators{
         _emailController.value,
         _phoneNoController.value,
         _ageController.value,
-        _experienceController.value, _visitDateController.value, _visitAgainController.value);
+        _experienceController.value,
+        _visitDateController.value,
+        _visitAgainController.value);
 
-    await db.insertFeedbackData(formData);
+    print("Saved Data: $formData");
+
+    await db.insertFeedbackData(formData).then((data){
+      print("Saved Survey Data: $data");
+      db.getFeedbackData();
+    });
   }
 
 

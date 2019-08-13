@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
     );
   }
   
-  Widget startButton({String label}){
+  Widget startButton({String label, FeedbackFormModel feedbackForm}){
     return Padding(
       padding: const EdgeInsets.only(left:50.0, right: 50.0, bottom: 30.0),
       child: RaisedButton(
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
               color: Colors.white
             ),),
           ),
-          onPressed: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> FeedbackFormScreen())),
+          onPressed: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> FeedbackFormScreen(formModel: feedbackForm,))),
           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
       ),
     );
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
                     title: formData.welcome_screen_title,
                     desc: formData.welcome_screen_desc,
                   ),
-                  startButton(label: snapshot.data.welcome_screen_btn_title)
+                  startButton(label: snapshot.data.welcome_screen_btn_title, feedbackForm: formData)
                 ],
               );
             }

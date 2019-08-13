@@ -25,4 +25,14 @@ class Validators{
       }
   );
 
+  var validateEmptyField = StreamTransformer<String, String>.fromHandlers(
+    handleData: (textField, sink){
+      if(textField!=null && textField.isNotEmpty){
+        sink.add(textField);
+      }else{
+        sink.addError('Please enter the value');
+      }
+    }
+  );
+
 }

@@ -36,6 +36,7 @@ class DataBaseHelper {
   final String colFDGender = "fd_gender";
   final String colFDAge = "fd_age";
   final String colFDEmail = "fd_email";
+  final String colFDPhoneNo = "fd_phone";
   final String colFDExperience = "fd_experience";
   final String colFDDateOfVisit = "fd_visit_date";
   final String colFDVisitAgain = "fd_visit_again";
@@ -91,6 +92,7 @@ class DataBaseHelper {
     $colFDGender TEXT, 
     $colFDAge INTEGER, 
     $colFDEmail TEXT,
+    $colFDPhoneNo TEXT,
     $colFDExperience TEXT, 
     $colFDDateOfVisit TEXT, 
     $colFDVisitAgain TEXT)
@@ -116,8 +118,8 @@ class DataBaseHelper {
   //Get the feedback data from DB
   Future<FeedbackDataModel> getFeedbackData() async {
     Database db = await this.db;
-    var result = await db.rawQuery('SELECT * FROM $feedbackFormTable');
-    print("feedbackFormTable data: ${result}");
+    var result = await db.rawQuery('SELECT * FROM $feedbackDataTable');
+    print("feedbackDataTable data: $result");
     if (result.length == 0) return null;
     return FeedbackDataModel.fromMapFeedbackData(result.first);
   }

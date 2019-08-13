@@ -33,14 +33,14 @@ class FeedbackDataModel {
   }
 
   int get id => _id;
-  String get name => _fdName;
-  String get gender => _fdGender;
-  String get age => _fdEmail;
-  String get phone => _fdPhone;
-  String get email => _fdAge;
-  String get experience => _fdExperience;
-  String get visit_date => _fdDateOfVisit;
-  String get visit_again => _fdVisitAgain;
+  String get fd_name => _fdName;
+  String get fd_gender => _fdGender;
+  String get fd_age => _fdEmail;
+  String get fd_phone => _fdPhone;
+  String get fd_email => _fdAge;
+  String get fd_experience => _fdExperience;
+  String get fd_visit_date => _fdDateOfVisit;
+  String get fd_visit_again => _fdVisitAgain;
 
   Map<String, dynamic> toMapFeedbackData() {
     var mapFeedbackForm = new Map<String, dynamic>();
