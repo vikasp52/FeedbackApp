@@ -38,14 +38,13 @@ class FeedbackDataBloc extends Object with Validators {
   Sink<String> get visitAgainSink => _visitAgainController.sink;
 
   Stream<bool> get submitCheck =>
-      Observable.combineLatest6(nameStream, genderStream, ageStream, emailStream, visitDateStream, visitAgainStream,
-          (n, g, a, e, vd, va) {
+      Observable.combineLatest5(nameStream, genderStream, ageStream, emailStream, visitDateStream,
+          (n, g, a, e, vd) {
+
         if (_nameController.value != null &&
             _genderController.value != null &&
             _ageController.value != null &&
-            _emailController.value != null &&
-            _visitDateController.value != null &&
-            _visitAgainController.value != null) {
+            _emailController.value != null) {
           return true;
         } else {
           return false;

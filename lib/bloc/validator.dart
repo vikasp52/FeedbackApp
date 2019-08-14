@@ -17,7 +17,7 @@ class Validators{
 
   var phoneValidator = StreamTransformer<String, String>.fromHandlers(
       handleData: (phoneNo, sink){
-        if(phoneNo.length == 10){
+        if(phoneNo.isNotEmpty && phoneNo.length == 10){
           sink.add(phoneNo);
         }else{
           sink.addError('PhoneNo is invalid');
@@ -40,7 +40,7 @@ class Validators{
         if(rating!=null && (rating != 0.0.toString())){
           sink.add(rating);
         }else{
-          sink.addError('Please add rating');
+          sink.addError('Please add ratings');
         }
       }
   );

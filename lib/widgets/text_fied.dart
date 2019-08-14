@@ -30,6 +30,8 @@ class TextFieldWidget extends StatelessWidget {
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: prefixIcon,
+                filled: true,
+                fillColor: Colors.white,
                 errorText: snapshot.error,
                 hintText: hintText),
           );

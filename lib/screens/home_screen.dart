@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    feedbackFormBloc.saveData();
+    feedbackFormBloc.setValue();
   }
 
   Widget welcomeLabel({String title, String desc}) {
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
             title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 30.0,
             ),
           ),
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
             desc,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Colors.amber,
               fontSize: 20.0,
             ),
           ),
@@ -53,16 +53,16 @@ class _HomeState extends State<Home> {
     return Padding(
       padding: const EdgeInsets.only(left:50.0, right: 50.0, bottom: 30.0),
       child: RaisedButton(
-        color: Colors.black,
+        color: Colors.green[200],
           child: Padding(
             padding: const EdgeInsets.all(22.0),
             child: Text(label, style: TextStyle(
               fontSize: 25.0,
-              color: Colors.white
+              color: Colors.black
             ),),
           ),
           onPressed: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> FeedbackFormScreen(formModel: feedbackForm,))),
-          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))
       ),
     );
   }
@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white30,
       body: StreamBuilder<FeedbackFormModel>(
           stream: feedbackFormBloc.feedbackFormStream,
           builder: (context, snapshot) {
@@ -80,6 +80,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  Image.asset('images/icon.png', height: MediaQuery.of(context).size.height/2,),
                   welcomeLabel(
                     title: formData.welcome_screen_title,
                     desc: formData.welcome_screen_desc,
