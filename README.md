@@ -1,6 +1,9 @@
-# online_survey
+# Feedback App.
 
-A new Flutter application.
+A Flutter sample application for Feedback. 
+
+It has a offline storage.
+Bloc Pattern is used for state Management.
 
 ## Getting Started
 
