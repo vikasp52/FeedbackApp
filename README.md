@@ -4,10 +4,17 @@ A Flutter sample application for Feedback.
 
 It has a offline storage.
 Bloc Pattern is used for state Management.
+Api Call.
 
 Screenshot:
 
 ![Screen1](https://user-images.githubusercontent.com/39523018/65383410-dbf6d200-dd32-11e9-98ef-c4c4213e515a.jpeg)
+
+![Screen2](https://user-images.githubusercontent.com/39523018/65383423-1a8c8c80-dd33-11e9-8eb7-55ad4ee41470.jpeg)
+
+![Screen3](https://user-images.githubusercontent.com/39523018/65383436-3e4fd280-dd33-11e9-8ce5-a30118bb8d7a.jpeg)
+
+
 
 
 
